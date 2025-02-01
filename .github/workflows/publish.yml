@@ -3,9 +3,6 @@ name: CI
 on:
   push:
     branches: [ "main" ]
-    tags:
-      - 'cr'
-      - 'gh'
   pull_request:
     branches: [ "main" ]
   workflow_dispatch:
@@ -76,13 +73,6 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     
-    
-    - name: Publish to crates.io
-      if: startsWith(github.ref, 'refs/tags/cr')
-      run: cargo publish 
-      env:
-        CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
-    
     - name: Get version
       id: get_version
       run: echo "VERSION=$(grep '^version = ' Cargo.toml | cut -d '"' -f2)" >> $GITHUB_OUTPUT
@@ -93,7 +83,6 @@ jobs:
       uses: actions/download-artifact@v4
 
     - name: Create Release
-      if: startsWith(github.ref, 'refs/tags/gh')
       uses: softprops/action-gh-release@v1
       with:
         tag_name: v${{ steps.get_version.outputs.VERSION }}
