@@ -1,6 +1,6 @@
 [package]
 name = "cargo-project-finder"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 authors = ["Ahmet Özcan <ahmetozcan21@yahoo.com>"]
 description = "A CLI tool to find Cargo projects in directories recursively"
