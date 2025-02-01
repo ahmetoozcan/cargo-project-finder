@@ -12,15 +12,7 @@ Cargo Project Finder is a CLI tool designed to recursively find Cargo projects i
 
 ## Installation
 
-To install Cargo Project Finder, you need to have Rust and Cargo installed. Then, you can build the project using Cargo:
-
-```sh
-git clone https://github.com/ahmetoozcan/cargo-project-finder.git
-cd cargo-project-finder
-cargo build --release
-```
-
-Or you can install the cli tool globally using Cargo:
+You can install the cli tool globally using Cargo:
 
 ```sh
 cargo install cargo-project-finder
