@@ -62,11 +62,9 @@ jobs:
     - name: Build binary
       run: |
         cargo build --release --target ${{ matrix.target }}
-        # For Windows, ensure .exe extension
         if [ "${{ matrix.os }}" = "windows-latest" ]; then
-          mv target/${{ matrix.target }}/release/cargo-project-finder target/${{ matrix.target }}/release/cargo-project-finder.exe
+          Move-Item target/${{ matrix.target }}/release/cargo-project-finder target/${{ matrix.target }}/release/cargo-project-finder.exe
         fi
-      shell: pwsh
     
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
