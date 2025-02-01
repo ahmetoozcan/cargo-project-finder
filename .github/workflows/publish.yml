@@ -37,13 +37,13 @@ jobs:
         include:
           - os: ubuntu-latest
             target: x86_64-unknown-linux-gnu
-            suffix: ""
+            suffix: "-linux"
           - os: windows-latest
             target: x86_64-pc-windows-msvc
-            suffix: ".exe"
+            suffix: "-windows.exe"
           - os: macos-latest
             target: x86_64-apple-darwin
-            suffix: ""
+            suffix: "-macos"
     runs-on: ${{ matrix.os }}
     
     steps:
@@ -82,16 +82,11 @@ jobs:
     - name: Download artifacts
       uses: actions/download-artifact@v4
 
-    - name: List directory contents
-      run: ls -R
-
     - name: Create Release
       uses: softprops/action-gh-release@v1
       with:
         tag_name: v${{ steps.get_version.outputs.VERSION }}
         files: |
-          cargo-project-finder-x86_64-apple-darwin/cargo-project-finder
-          cargo-project-finder-x86_64-pc-windows-msvc/cargo-project-finder.exe
-          cargo-project-finder-x86_64-unknown-linux-gnu/cargo-project-finder
+          cargo-project-finder-*/cargo-project-finder*
       env:
         GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
