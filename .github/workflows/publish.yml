@@ -77,13 +77,13 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     
-    - name: Download artifacts
-      uses: actions/download-artifact@v4
-    
     - name: Publish to crates.io
-      run: cargo publish
+      run: cargo publish 
       env:
         CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
+    
+    - name: Download artifacts
+      uses: actions/download-artifact@v4
 
     - name: Create Release
       uses: softprops/action-gh-release@v1
