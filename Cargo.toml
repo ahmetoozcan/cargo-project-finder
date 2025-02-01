@@ -8,6 +8,7 @@ license = "MIT"
 repository = "https://github.com/ahmetoozcan/cargo-project-finder"
 keywords = ["cargo", "cli", "rust", "project", "finder"]
 categories = ["command-line-utilities", "development-tools::cargo-plugins"]
+readme = "README.md"
 
 [dependencies]
 clap = { version = "4.4", features = ["cargo"] }
