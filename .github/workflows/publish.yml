@@ -3,7 +3,6 @@ name: CI
 on:
   push:
     branches: [ "main" ]
-    tags: [ "v*" ]
   pull_request:
     branches: [ "main" ]
   workflow_dispatch:
@@ -62,7 +61,12 @@ jobs:
         targets: ${{ matrix.target }}
     
     - name: Build binary
-      run: cargo build --release --target ${{ matrix.target }}
+      run: |
+        cargo build --release --target ${{ matrix.target }}
+        # For Windows, ensure .exe extension
+        if [ "${{ matrix.os }}" = "windows-latest" ]; then
+          mv target/${{ matrix.target }}/release/cargo-project-finder target/${{ matrix.target }}/release/cargo-project-finder.exe
+        fi
     
     - name: Upload artifacts
       uses: actions/upload-artifact@v3
