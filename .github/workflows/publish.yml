@@ -37,13 +37,13 @@ jobs:
         include:
           - os: ubuntu-latest
             target: x86_64-unknown-linux-gnu
-            suffix: "-linux"
+            suffix: ""
           - os: windows-latest
             target: x86_64-pc-windows-msvc
-            suffix: "-windows.exe"
+            suffix: ".exe"
           - os: macos-latest
             target: x86_64-apple-darwin
-            suffix: "-macos"
+            suffix: ""
     runs-on: ${{ matrix.os }}
     
     steps:
@@ -81,6 +81,11 @@ jobs:
 
     - name: Download artifacts
       uses: actions/download-artifact@v4
+
+    - name: Rename artifacts
+      run: |
+        mv cargo-project-finder-x86_64-apple-darwin/cargo-project-finder cargo-project-finder-x86_64-apple-darwin/cargo-project-finder-macos
+        mv cargo-project-finder-x86_64-unknown-linux-gnu/cargo-project-finder cargo-project-finder-x86_64-unknown-linux-gnu/cargo-project-finder-linux
 
     - name: Create Release
       uses: softprops/action-gh-release@v1
