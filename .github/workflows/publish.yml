@@ -90,6 +90,8 @@ jobs:
       with:
         tag_name: v${{ steps.get_version.outputs.VERSION }}
         files: |
-          cargo-project-finder-*/cargo-project-finder*
+          cargo-project-finder-x86_64-apple-darwin/cargo-project-finder
+          cargo-project-finder-x86_64-pc-windows-msvc/cargo-project-finder.exe
+          cargo-project-finder-x86_64-unknown-linux-gnu/cargo-project-finder
       env:
         GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
