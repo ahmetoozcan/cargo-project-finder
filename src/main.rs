@@ -4,9 +4,9 @@ use prettytable::Row;
 use prettytable::Table;
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
+use std::fs;
 use std::path::Path;
 use std::path::PathBuf;
-use std::{fs, os::windows::fs::MetadataExt};
 use walkdir::{DirEntry, WalkDir};
 
 const VERSION: &str = env!("CARGO_PKG_VERSION");
@@ -141,6 +141,8 @@ fn find_cargo_projects(root: &Path, skip_hidden: bool) -> std::io::Result<Vec<Pr
 
 #[cfg(windows)]
 fn should_skip(entry: &DirEntry) -> bool {
+    use std::os::windows::fs::MetadataExt;
+
     // Check if file is hidden using Windows metadata
     if let Ok(metadata) = entry.metadata() {
         let attributes = metadata.file_attributes();
