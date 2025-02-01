@@ -36,7 +36,6 @@ jobs:
   build:
     name: Build Release
     needs: [check]
-    if: startsWith(github.ref, 'refs/tags/v')
     strategy:
       matrix:
         include:
@@ -78,20 +77,12 @@ jobs:
     name: Publish
     needs: [build, check]
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
     steps:
     - uses: actions/checkout@v3
     
-    - name: Install Rust
-      uses: dtolnay/rust-toolchain@master
-      with:
-        toolchain: stable
-    
     - name: Download artifacts
       uses: actions/download-artifact@v3
-    
-    - name: Get version
-      id: get_version
-      run: echo "VERSION=$(grep '^version = ' Cargo.toml | cut -d '"' -f2)" >> $GITHUB_OUTPUT
     
     - name: Publish to crates.io
       run: cargo publish
@@ -102,7 +93,6 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         tag_name: v${{ steps.get_version.outputs.VERSION }}
-        generate_release_notes: true
         files: |
           cargo-project-finder-*/cargo-project-finder*
       env:
